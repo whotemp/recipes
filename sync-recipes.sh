@@ -60,13 +60,15 @@ fi
 
 # Step 3: Git commit
 echo ""
-echo "📝 Committing changes to git..."
+echo "📝 Staging changes..."
 git add .
 if git diff --staged --quiet; then
-    echo "ℹ️  No changes to commit"
+    echo "ℹ️  No changes to stage"
 else
-    git commit -m "Sync recipes from iCloud - $(date '+%Y-%m-%d %H:%M')"
-    echo "✅ Changes committed!"
+    echo "✅ Changes staged!"
     echo ""
-    echo "💡 To push changes, run: git push"
+    echo "💡 Next steps:"
+    echo "   git status                                    # Review changes"
+    echo "   git commit -m 'Sync recipes from iCloud'     # Commit when ready"
+    echo "   git push                                       # Push to remote"
 fi
