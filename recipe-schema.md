@@ -30,21 +30,40 @@ image: "garlic-noodles.jpg"
 
 ```ts
 // src/content.config.ts
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
 
+// Recipes live in a separate repo, mounted at src/content/recipes/
+// (a git submodule). Markdown authored in Obsidian; no `title` field —
+// the title comes from the filename (see src/lib/recipes.ts).
 const recipes = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/recipes' }),
-  schema: z.object({
-    publish: z.boolean(),
-    course: z.enum(['main', 'side', 'condiment', 'sauce', 'snack', 'dessert', 'beverage']),
-    category: z.enum(['baked', 'grain', 'noodle', 'protein', 'soup', 'stew', 'stir-fry', 'veggie']).optional(),
-    servings: z.number().optional(),
-    tags: z.array(z.string()),
-    source: z.string(),
-    image: z.string().optional(),
-  }),
+	loader: glob({
+		// Every .md is a recipe, except the repo's own docs.
+		pattern: ['**/*.md', '!**/README.*', '!**/recipe-schema.md'],
+		base: './src/content/recipes',
+	}),
+	schema: z.object({
+		publish: z.boolean().default(false),
+		course: z.enum([
+			'main',
+			'side',
+			'condiment',
+			'sauce',
+			'snack',
+			'dessert',
+			'beverage',
+		]),
+		category: z
+			.enum(['baked', 'grain', 'noodle', 'protein', 'soup', 'stew', 'stir-fry', 'veggie'])
+			.optional(),
+		servings: z.number().optional(),
+		tags: z.array(z.string()).default([]),
+		source: z.string(),
+		image: z.string().optional(),
+	}),
 });
 
 export const collections = { recipes };
+
 ```
