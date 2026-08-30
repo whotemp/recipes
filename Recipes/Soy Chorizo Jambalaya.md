@@ -1,7 +1,6 @@
 ---
 publish: true
 course: main
-category: rice
 servings:
 tags:
   - one-pot
