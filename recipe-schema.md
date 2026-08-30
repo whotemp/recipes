@@ -6,7 +6,6 @@
 ---
 publish: true
 course: main
-category: stir-fry
 servings: 4
 tags: ["noodles", "vegetarian", "quick"]
 source: "adapted from [[Bon Appetit]]"
@@ -20,7 +19,6 @@ image: "garlic-noodles.jpg"
 |---|---|---|---|
 | `publish` | boolean | yes | Publish script only picks up `true` |
 | `course` | enum | yes | `main` \| `side` \| `condiment` \| `sauce` \| `snack` \| `dessert` \| `beverage` — kept small and fast to classify |
-| `category` | enum | optional | `baked` \| `noodle` \| `protein` \| `rice` \| `soup` \| `stew` \| `stir-fry` \| `veggie` — dish-type specificity, only fill in when it clarifies |
 | `servings` | number | optional | |
 | `tags` | array of strings | yes | Freeform, defaults to `[]` |
 | `source` | string | yes | Original source, URL, or `"original"` |
@@ -54,9 +52,6 @@ const recipes = defineCollection({
 			'dessert',
 			'beverage',
 		]),
-		category: z
-			.enum(['baked', 'noodle', 'protein', 'rice', 'soup', 'stew', 'stir-fry', 'veggie'])
-			.optional(),
 		servings: z.number().optional(),
 		tags: z.array(z.string()).default([]),
 		source: z.string(),
