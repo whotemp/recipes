@@ -20,7 +20,7 @@ image: "garlic-noodles.jpg"
 |---|---|---|---|
 | `publish` | boolean | yes | Publish script only picks up `true` |
 | `course` | enum | yes | `main` \| `side` \| `condiment` \| `sauce` \| `snack` \| `dessert` \| `beverage` — kept small and fast to classify |
-| `category` | enum | optional | `baked` \| `grain` \| `noodle` \| `protein` \| `soup` \| `stew` \| `stir-fry` \| `veggie` — dish-type specificity, only fill in when it clarifies |
+| `category` | enum | optional | `baked` \| `rice` \| `noodle` \| `protein` \| `soup` \| `stew` \| `stir-fry` \| `veggie` — dish-type specificity, only fill in when it clarifies |
 | `image` | string | optional | Path to image file, once you have one |
 | `servings` | number | optional | |
 | `tags` | array of strings | yes | Freeform |
@@ -55,7 +55,7 @@ const recipes = defineCollection({
 			'beverage',
 		]),
 		category: z
-			.enum(['baked', 'grain', 'noodle', 'protein', 'soup', 'stew', 'stir-fry', 'veggie'])
+			.enum(['baked', 'rice', 'noodle', 'protein', 'soup', 'stew', 'stir-fry', 'veggie'])
 			.optional(),
 		servings: z.number().optional(),
 		tags: z.array(z.string()).default([]),
