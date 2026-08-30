@@ -19,10 +19,10 @@ image: "garlic-noodles.jpg"
 |---|---|---|---|
 | `publish` | boolean | yes | Publish script only picks up `true` |
 | `course` | enum | yes | `main` \| `side` \| `condiment` \| `sauce` \| `snack` \| `dessert` \| `beverage` — kept small and fast to classify |
-| `servings` | number | optional | |
+| `servings` | number | optional | Accepts `null` (empty YAML value) or omitted |
 | `tags` | array of strings | yes | Freeform, defaults to `[]` |
 | `source` | string | yes | Original source, URL, or `"original"` |
-| `image` | string | optional | Path to image file, once you have one |
+| `image` | string | optional | Path to image file, once you have one. Accepts `null` (empty YAML value) or omitted |
 
 ## Zod schema (Astro content collection)
 
@@ -37,9 +37,10 @@ import { z } from 'astro/zod';
 // the title comes from the filename (see src/lib/recipes.ts).
 const recipes = defineCollection({
 	loader: glob({
-		// Every .md is a recipe, except the repo's own docs.
-		pattern: ['**/*.md', '!**/README.*', '!**/recipe-schema.md'],
-		base: './src/content/recipes',
+		// Recipe markdown lives under Recipes/; the repo root holds only
+		// README.md, publish.sh, and recipe-schema.md.
+		pattern: '**/*.md',
+		base: './src/content/recipes/Recipes',
 	}),
 	schema: z.object({
 		publish: z.boolean().default(false),
@@ -52,10 +53,11 @@ const recipes = defineCollection({
 			'dessert',
 			'beverage',
 		]),
-		servings: z.number().optional(),
+		// Empty YAML values (`servings:` / `image:`) parse as null, not undefined.
+		servings: z.number().nullish(),
 		tags: z.array(z.string()).default([]),
 		source: z.string(),
-		image: z.string().optional(),
+		image: z.string().nullish(),
 	}),
 });
 
