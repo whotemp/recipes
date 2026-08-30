@@ -11,9 +11,9 @@ Markdown recipes synced from Obsidian
 
 Whenever you've added or edited recipes in Obsidian and want them live on the site:
 
-\```bash
+```bash
 ./publish.sh
-\```
+```
 
 This syncs recipes from your Obsidian vault into this repo (removing any deleted files) and pushes the changes, which triggers the site rebuild.
 
