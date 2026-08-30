@@ -1,0 +1,18 @@
+# Copy this file to rclone.conf (gitignored) and fill in your R2 credentials.
+#
+#   cp rclone.conf.example rclone.conf
+#
+# Credentials come from an R2 API token:
+#   Cloudflare dashboard -> R2 -> Manage API Tokens -> Create API Token
+#   (Object Read & Write, scoped to your bucket)
+#
+# The section name in [brackets] is the remote name and must match
+# R2_REMOTE in sync-images.sh (currently "r2").
+
+[r2]
+type = s3
+provider = Cloudflare
+access_key_id = YOUR_R2_ACCESS_KEY_ID
+secret_access_key = YOUR_R2_SECRET_ACCESS_KEY
+endpoint = https://YOUR_ACCOUNT_ID.r2.cloudflarestorage.com
+acl = private
