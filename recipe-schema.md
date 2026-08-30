@@ -20,11 +20,11 @@ image: "garlic-noodles.jpg"
 |---|---|---|---|
 | `publish` | boolean | yes | Publish script only picks up `true` |
 | `course` | enum | yes | `main` \| `side` \| `condiment` \| `sauce` \| `snack` \| `dessert` \| `beverage` — kept small and fast to classify |
-| `category` | enum | optional | `baked` \| `rice` \| `noodle` \| `protein` \| `soup` \| `stew` \| `stir-fry` \| `veggie` — dish-type specificity, only fill in when it clarifies |
-| `image` | string | optional | Path to image file, once you have one |
+| `category` | enum | optional | `baked` \| `noodle` \| `protein` \| `rice` \| `soup` \| `stew` \| `stir-fry` \| `veggie` — dish-type specificity, only fill in when it clarifies |
 | `servings` | number | optional | |
-| `tags` | array of strings | yes | Freeform |
+| `tags` | array of strings | yes | Freeform, defaults to `[]` |
 | `source` | string | yes | Original source, URL, or `"original"` |
+| `image` | string | optional | Path to image file, once you have one |
 
 ## Zod schema (Astro content collection)
 
@@ -55,7 +55,7 @@ const recipes = defineCollection({
 			'beverage',
 		]),
 		category: z
-			.enum(['baked', 'rice', 'noodle', 'protein', 'soup', 'stew', 'stir-fry', 'veggie'])
+			.enum(['baked', 'noodle', 'protein', 'rice', 'soup', 'stew', 'stir-fry', 'veggie'])
 			.optional(),
 		servings: z.number().optional(),
 		tags: z.array(z.string()).default([]),
@@ -65,5 +65,4 @@ const recipes = defineCollection({
 });
 
 export const collections = { recipes };
-
 ```
