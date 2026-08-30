@@ -13,3 +13,6 @@ ehthumbs.db
 *~
 .idea/
 .vscode/
+
+# Secrets — project-local rclone config holds R2 credentials
+rclone.conf
