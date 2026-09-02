@@ -16,7 +16,17 @@ Whenever you've added or edited recipes in Obsidian and want them live on the si
 ./publish.sh
 ```
 
-This syncs recipes from your Obsidian vault into this repo (removing any deleted files) and pushes the changes, which triggers the site rebuild.
+Run it from anywhere — including the website repo if this is mounted there as a
+submodule (`[...]/recipes/publish.sh`). When it detects it's running inside a
+superproject, it offers to bump the submodule pointer there and push, so the
+site picks up the new recipes.
+
+This scans the whole vault Recipes folder, stages every `.md` whose frontmatter
+`status` is `complete` or `publish` (flattened by filename), validates their
+image references, syncs images to R2, then mirrors the staged set into
+`Recipes/` here (removing anything no longer published) and pushes — which
+triggers the site rebuild. Recipe folders in the vault (`Testing/`, `Review/`,
+…) are just for organizing; only the `status` field decides what publishes.
 
 ## Recipe schema
 

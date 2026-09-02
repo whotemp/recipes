@@ -4,8 +4,15 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 VAULT_PHOTOS="/Users/kevinlang/Library/Mobile Documents/iCloud~md~obsidian/Documents/Kevin/Recipes/Photos"
-VAULT_RECIPES="/Users/kevinlang/Library/Mobile Documents/iCloud~md~obsidian/Documents/Kevin/Recipes/Publish"
 R2_REMOTE="r2:website-assets/recipe-photos"   # remote name must match the [section] in ./rclone.conf
+
+# The directory of recipes whose images to validate. publish.sh passes its
+# staging dir (the recipes about to be published) as $1.
+RECIPES_DIR="${1:-}"
+if [ -z "$RECIPES_DIR" ] || [ ! -d "$RECIPES_DIR" ]; then
+  echo "ERROR: usage: sync-images.sh <recipes-dir>  (run ./publish.sh instead)" >&2
+  exit 1
+fi
 
 # Use a project-local rclone config (gitignored) instead of ~/.config/rclone.
 # Copy rclone.conf.example to rclone.conf and fill in your R2 credentials.
@@ -47,7 +54,7 @@ while IFS= read -r -d '' file; do
       missing=$((missing + 1))
     fi
   fi
-done < <(find "$VAULT_RECIPES" -name "*.md" -print0)
+done < <(find "$RECIPES_DIR" -name "*.md" -print0)
 
 if [ "$missing" -gt 0 ]; then
   echo ""

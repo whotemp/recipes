@@ -37,8 +37,8 @@ import { z } from 'astro/zod';
 // the title comes from the filename (see src/lib/recipes.ts).
 const recipes = defineCollection({
 	loader: glob({
-		// Recipe markdown lives under Recipes/; the repo root holds only
-		// README.md, publish.sh, and recipe-schema.md.
+		// Recipe markdown lives (flat) under Recipes/; the repo root holds
+		// only docs and the publish scripts.
 		pattern: '**/*.md',
 		base: './src/content/recipes/Recipes',
 	}),
