@@ -3,8 +3,8 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-VAULT_PHOTOS="/Users/kevinlang/Library/Mobile Documents/iCloud~md~obsidian/Documents/Kevin/Cooking/Photos"
-VAULT_RECIPES="/Users/kevinlang/Library/Mobile Documents/iCloud~md~obsidian/Documents/Kevin/Cooking/Recipes"
+VAULT_PHOTOS="/Users/kevinlang/Library/Mobile Documents/iCloud~md~obsidian/Documents/Kevin/Recipes/Photos"
+VAULT_RECIPES="/Users/kevinlang/Library/Mobile Documents/iCloud~md~obsidian/Documents/Kevin/Recipes/Publish"
 R2_REMOTE="r2:website-assets/recipe-photos"   # remote name must match the [section] in ./rclone.conf
 
 # Use a project-local rclone config (gitignored) instead of ~/.config/rclone.

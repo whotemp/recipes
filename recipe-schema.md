@@ -4,10 +4,10 @@
 
 ```yaml
 ---
-publish: true
+status: publish
 course: main
 servings: 4
-tags: ["noodles", "vegetarian", "quick"]
+recipeTags: ["noodles", "vegetarian", "quick"]
 source: "adapted from [[Bon Appetit]]"
 image: "garlic-noodles.jpg"
 ---
@@ -17,11 +17,11 @@ image: "garlic-noodles.jpg"
 
 | Field | Type | Required | Notes |
 |---|---|---|---|
-| `publish` | boolean | yes | Publish script only picks up `true` |
+| `status` | enum | yes (can be `null`) | `complete` \| `publish` \| `review` \| `ignore` \| `null` |
 | `course` | enum | yes | `main` \| `side` \| `condiment` \| `sauce` \| `snack` \| `dessert` \| `beverage` — kept small and fast to classify |
 | `servings` | number | optional | Accepts `null` (empty YAML value) or omitted |
-| `tags` | array of strings | yes | Freeform, defaults to `[]` |
-| `source` | string | yes | Original source, URL, or `"original"` |
+| `recipeTags` | array of strings | yes | Freeform, defaults to `[]`. Named to avoid colliding with Obsidian's native `tags` field |
+| `source` | string | optional | Original source, URL, or `"original"`. Accepts `null` (empty YAML value) or omitted |
 | `image` | string | optional | Path to image file, once you have one. Accepts `null` (empty YAML value) or omitted |
 
 ## Zod schema (Astro content collection)
@@ -43,7 +43,7 @@ const recipes = defineCollection({
 		base: './src/content/recipes/Recipes',
 	}),
 	schema: z.object({
-		publish: z.boolean().default(false),
+		status: z.enum(['complete', 'publish', 'review', 'ignore']).nullable(),
 		course: z.enum([
 			'main',
 			'side',
@@ -55,8 +55,8 @@ const recipes = defineCollection({
 		]),
 		// Empty YAML values (`servings:` / `image:`) parse as null, not undefined.
 		servings: z.number().nullish(),
-		tags: z.array(z.string()).default([]),
-		source: z.string(),
+		recipeTags: z.array(z.string()).default([]),
+		source: z.string().nullish(),
 		image: z.string().nullish(),
 	}),
 });

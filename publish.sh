@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-VAULT_RECIPES="/Users/kevinlang/Library/Mobile Documents/iCloud~md~obsidian/Documents/Kevin/Cooking/Recipes"
+VAULT_RECIPES="/Users/kevinlang/Library/Mobile Documents/iCloud~md~obsidian/Documents/Kevin/Recipes/Publish"
 
 cd "$SCRIPT_DIR"
 
